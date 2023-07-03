@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo List</title>
+  <style>
+    #todo-list {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      margin: 0 auto;
+    }
+    #todo-list input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    #todo-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    #todo-list li {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+    #todo-list li:last-child {
+      border-bottom: none;
+    }
+    #todo-list .delete-btn {
+      float: right;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="todo-list">
+    <h1>Todo List</h1>
+    <input type="text" id="todo-input" placeholder="Enter a new task">
+    <ul id="tasks"></ul>
+  </div>
+
+  <script>
+    // Get references to the input and tasks list
+    var input = document.getElementById('todo-input');
+    var tasksList = document.getElementById('tasks');
+
+    // Add event listener to handle "Enter" key press
+    input.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        addTask();
+      }
+    });
+
+    // Function to add a new task
+    function addTask() {
+      var taskText = input.value;
+      if (taskText.trim() === '') {
+        return;
+      }
+
+      // Create new list item with the task text
+      var li = document.createElement('li');
+      li.textContent = taskText;
+
+      // Create delete button for the list item
+      var deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'delete-btn';
+
+      // Add event listener to delete the task when the button is clicked
+      deleteBtn.addEventListener('click', function() {
+        li.remove();
+      });
+
+      // Append the delete button to the list item
+      li.appendChild(deleteBtn);
+
+      // Append the list item to the tasks list
+      tasksList.appendChild(li);
+
+      // Clear the input field
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
